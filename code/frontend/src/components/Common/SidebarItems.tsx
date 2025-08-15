@@ -26,24 +26,31 @@ const SidebarItems = ({ onClose }: SidebarItemsProps) => {
     : items
 
   const listItems = finalItems.map(({ icon, title, path }) => (
-    <Flex
-      as={Link}
-      to={path}
-      w="100%"
-      p={2}
-      key={title}
-      activeProps={{
-        style: {
-          background: bgActive,
-          borderRadius: "12px",
-        },
-      }}
-      color={textColor}
-      onClick={onClose}
-    >
-      <Icon as={icon} alignSelf="center" />
-      <Text ml={2}>{title}</Text>
-    </Flex>
+  <Flex
+    as={Link}
+    to={path}
+    w="100%"
+    p={2}
+    key={title}
+    activeProps={{
+      style: {
+        background: bgActive,
+        borderRadius: "12px",
+      },
+    }}
+    color={textColor}
+    onClick={(e) => {
+      if (title !== "Items") {
+        e.preventDefault();
+        e.stopPropagation();
+      } else {
+        onClose?.();
+      }
+    }}
+  >
+    <Icon as={icon} alignSelf="center" />
+    <Text ml={2}>{title}</Text>
+  </Flex>
   ))
 
   return (
